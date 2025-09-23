@@ -1,4 +1,6 @@
 package cooprkc.transacciones;
 
-public class Transaccion {
+public interface Transaccion {
+    void ejecutar();
+    double getMonto();
 }

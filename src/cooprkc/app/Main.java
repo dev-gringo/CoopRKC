@@ -17,8 +17,8 @@ public class Main {
         coop.registrarSocio(s2);
 
         // Crear cuentas de ahorro
-        CuentaAhorros c1 = new CuentaAhorros("C001", 0.05);
-        CuentaAhorros c2 = new CuentaAhorros("C002", 0.03);
+        CuentaAhorros c1 = new CuentaAhorros("5845428294", 0.05);
+        CuentaAhorros c2 = new CuentaAhorros("5832443342", 0.03);
         s1.agregarCuenta(c1);
         s2.agregarCuenta(c2);
 

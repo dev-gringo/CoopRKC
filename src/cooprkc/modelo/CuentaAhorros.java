@@ -14,10 +14,8 @@ public class CuentaAhorros extends Cuenta {
 
     @Override
     public String toString() {
-        return "CuentaAhorros{" +
-                "numeroCuenta='" + getNumeroCuenta() + '\'' +
-                ", saldo=" + saldo +
-                ", interes=" + interes +
-                '}';
+        return String.format("CuentaAhorros [Número: %s | Saldo: $%,.2f | Interés: %.2f%%]",
+                getNumeroCuenta(), saldo, interes * 100);
     }
+
 }

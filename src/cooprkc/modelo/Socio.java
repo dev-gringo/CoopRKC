@@ -13,10 +13,9 @@ public class Socio {
 
     @Override
     public String toString() {
-        return "Socio {" +
-                "nombre='" + nombre + '\'' +
-                ", edad=" + edad +
-                ", documento='" + documento + '\'' +
-                '}';
+        return "Nombre: " + nombre + "\n" +
+                "Edad: " + edad + "\n" +
+                "Documento: " + documento + "\n";
     }
+
 }

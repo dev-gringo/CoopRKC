@@ -1,66 +1,36 @@
 package cooprkc.app;
 
-import cooprkc.modelo.Socio;
-import java.util.ArrayList;
+import cooprkc.servicio.GestorSocios;
 import java.util.Scanner;
 
 public class CoopRKC {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Socio> socios = new ArrayList<>();
+        GestorSocios gestor = new GestorSocios();
+        int opcion;
 
-        System.out.println("=== Bienvenido a CoopRKC ===");
-
-        boolean continuar = true;
-        while (continuar) {
+        do {
             System.out.println("\nMenú:");
             System.out.println("1. Registrar socio");
             System.out.println("2. Mostrar socios");
-            System.out.println("3. Salir");
+            System.out.println("3. Filtrar socios por saldo");
+            System.out.println("4. Mostrar suma total de saldos");
+            System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
-
-            int opcion = scanner.nextInt();
-            scanner.nextLine(); // limpiar buffer
+            opcion = Integer.parseInt(scanner.nextLine());
 
             switch (opcion) {
-                case 1:
-                    System.out.print("Ingrese el nombre: ");
-                    String nombre = scanner.nextLine();
-
-                    System.out.print("Ingrese la edad: ");
-                    int edad = scanner.nextInt();
-                    scanner.nextLine(); // limpiar buffer
-
-                    System.out.print("Ingrese el documento: ");
-                    String documento = scanner.nextLine();
-
-                    Socio nuevoSocio = new Socio(nombre, edad, documento);
-                    socios.add(nuevoSocio);
-
-                    System.out.println("Socio agregado con éxito.");
-                    break;
-
-                case 2:
-                    System.out.println("\nLista de socios registrados:");
-                    if (socios.isEmpty()) {
-                        System.out.println("No hay socios registrados.");
-                    } else {
-                        for (Socio s : socios) {
-                            System.out.println(s);
-                        }
-                    }
-                    break;
-
-                case 3:
-                    continuar = false;
-                    System.out.println("Saliendo de CoopRKC...");
-                    break;
-
-                default:
-                    System.out.println(" Opción inválida, intente de nuevo.");
+                case 1 -> gestor.registrarSocio();
+                case 2 -> gestor.listarSocios();
+                case 3 -> {
+                    System.out.print("Ingrese el saldo mínimo a filtrar: ");
+                    double valor = Double.parseDouble(scanner.nextLine());
+                    gestor.filtrarPorSaldo(valor);
+                }
+                case 4 -> gestor.sumaTotalSaldos();
+                case 5 -> System.out.println("Saliendo del sistema...");
+                default -> System.out.println("Opción no válida.");
             }
-        }
-
-        scanner.close();
+        } while (opcion != 5);
     }
 }

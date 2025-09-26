@@ -1,11 +1,6 @@
 package cooprkc.app;
 
-import cooprkc.modelo.CuentaAhorros;
 import cooprkc.modelo.Socio;
-import cooprkc.servicio.Cooperativa;
-import cooprkc.transacciones.Deposito;
-import cooprkc.transacciones.Retiro;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,7 +41,7 @@ public class CoopRKC {
                     break;
 
                 case 2:
-                    System.out.println("\n Lista de socios registrados:");
+                    System.out.println("\nLista de socios registrados:");
                     if (socios.isEmpty()) {
                         System.out.println("No hay socios registrados.");
                     } else {

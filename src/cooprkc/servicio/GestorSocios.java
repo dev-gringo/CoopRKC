@@ -1,53 +1,85 @@
 package cooprkc.servicio;
 
 import cooprkc.modelo.Socio;
+import cooprkc.modelo.CuentaAhorros;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class GestorSocios {
     private List<Socio> socios = new ArrayList<>();
-    private Scanner scanner = new Scanner(System.in);
 
-    // Registrar socio
-    public void registrarSocio() {
-        System.out.print("Ingrese nombre: ");
-        String nombre = scanner.nextLine();
-
-        System.out.print("Ingrese edad: ");
-        int edad = Integer.parseInt(scanner.nextLine());
-
-        System.out.print("Ingrese documento: ");
-        String documento = scanner.nextLine();
-
-        System.out.print("Ingrese saldo inicial: ");
-        double saldo = Double.parseDouble(scanner.nextLine());
-
-        socios.add(new Socio(nombre, edad, documento, saldo));
-        System.out.println("Socio registrado con éxito.");
+    public void registrarSocio(Socio socio) {
+        socios.add(socio);
     }
 
-    // Listar socios con Streams
     public void listarSocios() {
-        System.out.println("\nLista de socios registrados:");
-        socios.stream().forEach(s -> {
-            System.out.println(s + "\n");
-        });
+        if (socios.isEmpty()) {
+            System.out.println("⚠️ No hay socios registrados.");
+            return;
+        }
+
+        System.out.printf("%-5s %-15s %-15s %-10s%n", "ID", "Nombre", "Número Cuenta", "Saldo");
+        System.out.println("---------------------------------------------------");
+
+        socios.forEach(s -> System.out.printf(
+                "%-5d %-15s %-15s %-10.2f%n",
+                s.getId(),
+                s.getNombre(),
+                s.getCuenta().getNumeroCuenta(),
+                s.getCuenta().getSaldo()
+        ));
     }
 
-    // Filtrar socios con saldo mayor a un valor
-    public void filtrarPorSaldo(double valor) {
-        System.out.println("\nSocios con saldo mayor a $" + valor + ":");
+
+    // ✅ MAP + forEach
+    public void listarNombresSocios() {
         socios.stream()
-                .filter(s -> s.getSaldo() > valor)
-                .forEach(s -> System.out.println(s + "\n"));
+                .map(Socio::getNombre)
+                .forEach(System.out::println);
     }
 
-    // Suma total de saldos
-    public void sumaTotalSaldos() {
-        double total = socios.stream()
-                .mapToDouble(Socio::getSaldo)
-                .sum();
-        System.out.println("\nSuma total de saldos en la cooperativa: $" + total);
+    // ✅ FILTER
+    public void filtrarPorSaldo(double saldoMinimo) {
+        socios.stream()
+                .filter(s -> s.getCuenta().getSaldo() >= saldoMinimo)
+                .forEach(System.out::println);
+    }
+
+    // ✅ REDUCE
+    public double sumaTotalSaldos() {
+        return socios.stream()
+                .map(s -> s.getCuenta().getSaldo())
+                .reduce(0.0, Double::sum);
+    }
+
+    // ✅ Depósito
+    public void depositar(int idSocio, double monto) {
+        socios.stream()
+                .filter(s -> s.getId() == idSocio)
+                .findFirst()
+                .ifPresent(s -> s.getCuenta().depositar(monto));
+    }
+
+    // ✅ Retiro con control de errores
+    public void retirar(int idSocio, double monto) {
+        socios.stream()
+                .filter(s -> s.getId() == idSocio)
+                .findFirst()
+                .ifPresent(s -> s.getCuenta().retirar(monto));
+    }
+
+    // ✅ Aplicar interés a cuenta de ahorro
+    public void aplicarInteres(int idSocio) {
+        socios.stream()
+                .filter(s -> s.getId() == idSocio)
+                .findFirst()
+                .ifPresent(s -> {
+                    if (s.getCuenta() instanceof CuentaAhorros ahorro) {
+                        ahorro.aplicarInteres();
+                    } else {
+                        System.out.println("El socio no tiene cuenta de ahorro.");
+                    }
+                });
     }
 }

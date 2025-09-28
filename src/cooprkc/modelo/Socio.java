@@ -1,29 +1,35 @@
 package cooprkc.modelo;
 
 public class Socio {
+    private static int contador = 1;
+    private int id;
     private String nombre;
-    private int edad;
-    private String documento;
-    private double saldo; // 👈 Nuevo atributo
+    private Cuenta cuenta;
 
-    public Socio(String nombre, int edad, String documento, double saldo) {
+    public Socio(String nombre, Cuenta cuenta) {
+        this.id = contador++; // id autoincremental
         this.nombre = nombre;
-        this.edad = edad;
-        this.documento = documento;
-        this.saldo = saldo;
+        this.cuenta = cuenta;
     }
 
-    public String getNombre() { return nombre; }
-    public int getEdad() { return edad; }
-    public String getDocumento() { return documento; }
-    public double getSaldo() { return saldo; }
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre +
-                "\nEdad: " + edad +
-                "\nDocumento: " + documento +
-                "\nSaldo: $" + saldo;
+        return "Socio {" +
+                "ID=" + id +
+                ", Nombre='" + nombre + '\'' +
+                ", " + cuenta +
+                '}';
     }
 }
-

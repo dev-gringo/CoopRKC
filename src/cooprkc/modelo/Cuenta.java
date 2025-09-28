@@ -4,9 +4,16 @@ public abstract class Cuenta {
     private String numeroCuenta;
     protected double saldo;
 
+    // Constructor con solo numeroCuenta
     public Cuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = 0.0;
+    }
+
+    // ✅ Constructor adicional con saldo inicial
+    public Cuenta(String numeroCuenta, double saldoInicial) {
+        this.numeroCuenta = numeroCuenta;
+        this.saldo = saldoInicial;
     }
 
     public String getNumeroCuenta() {

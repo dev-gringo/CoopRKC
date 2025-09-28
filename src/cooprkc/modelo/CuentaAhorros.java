@@ -1,21 +1,22 @@
 package cooprkc.modelo;
 
 public class CuentaAhorros extends Cuenta {
-    private double interes; // porcentaje, ej: 0.05 = 5%
+    private static final double INTERES = 0.02; // 2% de interés
 
-    public CuentaAhorros(String numeroCuenta, double interes) {
+    public CuentaAhorros(String numeroCuenta, double saldoInicial) {
         super(numeroCuenta);
-        this.interes = interes;
+        depositar(saldoInicial); // ✅ Así se carga el saldo inicial
     }
 
     public void aplicarInteres() {
-        saldo += saldo * interes;
+        this.saldo += this.saldo * INTERES;
     }
 
     @Override
     public String toString() {
-        return String.format("CuentaAhorros [Número: %s | Saldo: $%,.2f | Interés: %.2f%%]",
-                getNumeroCuenta(), saldo, interes * 100);
+        return "CuentaAhorros {" +
+                "Número='" + getNumeroCuenta() + '\'' +
+                ", Saldo=" + saldo +
+                '}';
     }
-
 }

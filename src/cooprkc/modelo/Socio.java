@@ -4,7 +4,7 @@ public class Socio {
     private static int contador = 1;
     private final int id;
     private String nombre;
-    private Cuenta cuenta;
+    private final Cuenta cuenta;
 
     public Socio(String nombre, Cuenta cuenta) {
         this.id = contador++; // id autoincremental

@@ -1,19 +1,13 @@
 package cooprkc.modelo;
 
 public abstract class Cuenta {
-    private String numeroCuenta;
+    private final String numeroCuenta;
     protected double saldo;
 
     // Constructor con solo numeroCuenta
     public Cuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = 0.0;
-    }
-
-    // ✅ Constructor adicional con saldo inicial
-    public Cuenta(String numeroCuenta, double saldoInicial) {
-        this.numeroCuenta = numeroCuenta;
-        this.saldo = saldoInicial;
     }
 
     public String getNumeroCuenta() {
@@ -31,7 +25,7 @@ public abstract class Cuenta {
 
     public void retirar(double monto) {
         if (monto <= 0) throw new IllegalArgumentException("El monto debe ser positivo.");
-        if (saldo < monto) throw new IllegalStateException("Saldo insuficiente.");
+        if (saldo < monto) throw new IllegalStateException("Saldo insuficiente, pon un monto valido porfa.");
         saldo -= monto;
     }
 

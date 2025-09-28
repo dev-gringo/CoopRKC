@@ -15,7 +15,7 @@ public class GestorSocios {
 
     public void listarSocios() {
         if (socios.isEmpty()) {
-            System.out.println("⚠️ No hay socios registrados.");
+            System.out.println("No hay socios registrados.");
             return;
         }
 
@@ -32,28 +32,21 @@ public class GestorSocios {
     }
 
 
-    // ✅ MAP + forEach
-    public void listarNombresSocios() {
-        socios.stream()
-                .map(Socio::getNombre)
-                .forEach(System.out::println);
-    }
-
-    // ✅ FILTER
+    // FILTER
     public void filtrarPorSaldo(double saldoMinimo) {
         socios.stream()
                 .filter(s -> s.getCuenta().getSaldo() >= saldoMinimo)
                 .forEach(System.out::println);
     }
 
-    // ✅ REDUCE
+    // REDUCE
     public double sumaTotalSaldos() {
         return socios.stream()
                 .map(s -> s.getCuenta().getSaldo())
                 .reduce(0.0, Double::sum);
     }
 
-    // ✅ Depósito
+    // Depósito
     public void depositar(int idSocio, double monto) {
         socios.stream()
                 .filter(s -> s.getId() == idSocio)
@@ -61,7 +54,7 @@ public class GestorSocios {
                 .ifPresent(s -> s.getCuenta().depositar(monto));
     }
 
-    // ✅ Retiro con control de errores
+    // Retiro con control de errores
     public void retirar(int idSocio, double monto) {
         socios.stream()
                 .filter(s -> s.getId() == idSocio)
@@ -69,7 +62,7 @@ public class GestorSocios {
                 .ifPresent(s -> s.getCuenta().retirar(monto));
     }
 
-    // ✅ Aplicar interés a cuenta de ahorro
+    // Aplicar interés a cuenta de ahorro
     public void aplicarInteres(int idSocio) {
         socios.stream()
                 .filter(s -> s.getId() == idSocio)

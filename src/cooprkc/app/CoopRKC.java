@@ -41,7 +41,7 @@ public class CoopRKC {
                     Socio socio = new Socio(nombre, new CuentaAhorros(numeroCuenta, saldoInicial));
                     gestor.registrarSocio(socio);
 
-                    System.out.println("✅ Socio registrado con éxito.");
+                    System.out.println("Socio registrado con éxito.");
                 }
                 case 2 -> gestor.listarSocios();
                 case 3 -> {
@@ -52,7 +52,7 @@ public class CoopRKC {
                 }
                 case 4 -> {
                     double total = gestor.sumaTotalSaldos();
-                    System.out.println("💰 La suma de todos los saldos es: " + total);
+                    System.out.println("La suma de todos los saldos es: " + total);
                 }
                 case 5 -> {
                     System.out.print("Ingrese ID del socio: ");
@@ -71,7 +71,7 @@ public class CoopRKC {
                     try {
                         gestor.retirar(idRetiro, montoRetiro);
                     } catch (Exception e) {
-                        System.out.println("⚠️ " + e.getMessage());
+                        System.out.println(" " + e.getMessage());
                     }
                 }
                 case 7 -> {
@@ -80,8 +80,8 @@ public class CoopRKC {
                     sc.nextLine();
                     gestor.aplicarInteres(idInteres);
                 }
-                case 0 -> System.out.println("👋 Saliendo del sistema...");
-                default -> System.out.println("❌ Opción inválida, intente de nuevo.");
+                case 0 -> System.out.println("Saliendo del sistema...");
+                default -> System.out.println("Opción inválida, intente de nuevo.");
             }
 
         } while (opcion != 0);

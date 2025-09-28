@@ -2,7 +2,7 @@ package cooprkc.modelo;
 
 public class Socio {
     private static int contador = 1;
-    private int id;
+    private final int id;
     private String nombre;
     private Cuenta cuenta;
 
@@ -26,10 +26,14 @@ public class Socio {
 
     @Override
     public String toString() {
-        return "Socio {" +
-                "ID=" + id +
-                ", Nombre='" + nombre + '\'' +
-                ", " + cuenta +
-                '}';
+        return String.format(
+                "+----+-----------------+---------------+-----------+\n" +
+                        "| %-2s | %-15s | %-13s | %-9.2f |\n" +
+                        "+----+-----------------+---------------+-----------+",
+                id,
+                nombre,
+                cuenta.getNumeroCuenta(),
+                cuenta.getSaldo()
+        );
     }
 }

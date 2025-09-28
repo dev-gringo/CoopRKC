@@ -31,6 +31,9 @@ public class CoopRKC {
                     System.out.print("Ingrese nombre del socio: ");
                     String nombre = sc.nextLine();
 
+                    System.out.print("Ingrese cédula del socio: ");
+                    String cedula = sc.nextLine();
+
                     System.out.print("Ingrese número de cuenta: ");
                     String numeroCuenta = sc.nextLine();
 
@@ -38,7 +41,7 @@ public class CoopRKC {
                     double saldoInicial = sc.nextDouble();
                     sc.nextLine();
 
-                    Socio socio = new Socio(nombre, new CuentaAhorros(numeroCuenta, saldoInicial));
+                    Socio socio = new Socio(nombre, cedula, new CuentaAhorros(numeroCuenta, saldoInicial));
                     gestor.registrarSocio(socio);
 
                     System.out.println("Socio registrado con éxito.");

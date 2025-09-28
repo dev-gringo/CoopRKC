@@ -17,8 +17,18 @@ public class GestorSocios {
 
     // Listar socios completos
     public void listarSocios() {
-        socios.forEach(System.out::println);
+        // Mostrar encabezado
+        System.out.println("+----+-----------------+---------------+-----------+---------------+");
+        System.out.println("| ID | Nombre          | Número Cuenta | Saldo     | Cédula        |");
+        System.out.println("+----+-----------------+---------------+-----------+---------------+");
+
+        // Mostrar cada socio
+        socios.forEach(s -> System.out.println(s.toString()));
+
+        // Línea final de la tabla
+        System.out.print("+----+-----------------+---------------+-----------+---------------+");
     }
+
 
     // Listar solo nombres (map + forEach)
     public void listarNombresSocios() {

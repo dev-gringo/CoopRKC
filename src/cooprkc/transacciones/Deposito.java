@@ -1,6 +1,7 @@
 package cooprkc.transacciones;
 
 import cooprkc.modelo.Cuenta;
+import cooprkc.transacciones.Transaccion;
 
 public class Deposito implements Transaccion {
     private Cuenta cuenta;
@@ -19,5 +20,10 @@ public class Deposito implements Transaccion {
     @Override
     public double getMonto() {
         return monto;
+    }
+
+    @Override
+    public String toString() {
+        return "Depósito de $" + monto + " a la cuenta " + cuenta.getNumeroCuenta();
     }
 }

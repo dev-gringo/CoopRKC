@@ -1,7 +1,9 @@
 package cooprkc.servicio;
 
-import cooprkc.modelo.Socio;
-import cooprkc.modelo.CuentaAhorros;
+import cooprkc.modelo.*;
+import cooprkc.transacciones.Deposito;
+import cooprkc.transacciones.Retiro;
+import cooprkc.transacciones.Transaccion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,56 +15,61 @@ public class GestorSocios {
         socios.add(socio);
     }
 
+    // Listar socios completos
     public void listarSocios() {
-        if (socios.isEmpty()) {
-            System.out.println("No hay socios registrados.");
-            return;
-        }
-
-        System.out.printf("%-5s %-15s %-15s %-10s%n", "ID", "Nombre", "Número Cuenta", "Saldo");
-        System.out.println("---------------------------------------------------");
-
-        socios.forEach(s -> System.out.printf(
-                "%-5d %-15s %-15s %-10.2f%n",
-                s.getId(),
-                s.getNombre(),
-                s.getCuenta().getNumeroCuenta(),
-                s.getCuenta().getSaldo()
-        ));
+        socios.forEach(System.out::println);
     }
 
+    // Listar solo nombres (map + forEach)
+    public void listarNombresSocios() {
+        socios.stream()
+                .map(Socio::getNombre)
+                .forEach(System.out::println);
+    }
 
-    // FILTER
+    // Filtrar por saldo mínimo (filter)
     public void filtrarPorSaldo(double saldoMinimo) {
         socios.stream()
                 .filter(s -> s.getCuenta().getSaldo() >= saldoMinimo)
                 .forEach(System.out::println);
     }
 
-    // REDUCE
+    // Sumar todos los saldos (reduce)
     public double sumaTotalSaldos() {
         return socios.stream()
                 .map(s -> s.getCuenta().getSaldo())
                 .reduce(0.0, Double::sum);
     }
 
-    // Depósito
+    // Depósito usando la interfaz Transaccion
     public void depositar(int idSocio, double monto) {
         socios.stream()
                 .filter(s -> s.getId() == idSocio)
                 .findFirst()
-                .ifPresent(s -> s.getCuenta().depositar(monto));
+                .ifPresent(s -> {
+                    Transaccion deposito = new Deposito(s.getCuenta(), monto);
+                    deposito.ejecutar();
+                    System.out.println("hecho: " + deposito);
+                });
     }
 
-    // Retiro con control de errores
+    //  Retiro usando la interfaz Transaccion
     public void retirar(int idSocio, double monto) {
         socios.stream()
                 .filter(s -> s.getId() == idSocio)
                 .findFirst()
-                .ifPresent(s -> s.getCuenta().retirar(monto));
+                .ifPresent(s -> {
+                    try {
+                        Transaccion retiro = new Retiro(s.getCuenta(), monto);
+                        retiro.ejecutar();
+                        System.out.println("listo. " + retiro);
+                    } catch (IllegalStateException e) {
+                        System.out.println("Error en el retiro: " + e.getMessage());
+                    }
+                });
     }
 
-    // Aplicar interés a cuenta de ahorro
+    //  Aplicar interés a la cuenta de ahorro
     public void aplicarInteres(int idSocio) {
         socios.stream()
                 .filter(s -> s.getId() == idSocio)
@@ -70,6 +77,7 @@ public class GestorSocios {
                 .ifPresent(s -> {
                     if (s.getCuenta() instanceof CuentaAhorros ahorro) {
                         ahorro.aplicarInteres();
+                        System.out.println("Se aplicó interés a la cuenta " + ahorro.getNumeroCuenta());
                     } else {
                         System.out.println("El socio no tiene cuenta de ahorro.");
                     }

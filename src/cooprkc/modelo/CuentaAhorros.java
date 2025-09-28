@@ -5,7 +5,7 @@ public class CuentaAhorros extends Cuenta {
 
     public CuentaAhorros(String numeroCuenta, double saldoInicial) {
         super(numeroCuenta);
-        depositar(saldoInicial); // ✅ Así se carga el saldo inicial
+        depositar(saldoInicial); // Así se carga el saldo inicial
     }
 
     public void aplicarInteres() {

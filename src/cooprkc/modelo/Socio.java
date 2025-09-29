@@ -4,7 +4,7 @@ public class Socio {
     private static int contador = 1;
     private final int id;
     private String nombre;
-    private String cedula;   // 👈 nuevo campo
+    private String cedula;
     private final Cuenta cuenta;
 
     public Socio(String nombre, String cedula, Cuenta cuenta) {

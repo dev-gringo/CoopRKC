@@ -4,8 +4,8 @@ import cooprkc.modelo.Cuenta;
 import cooprkc.transacciones.Transaccion;
 
 public class Deposito implements Transaccion {
-    private Cuenta cuenta;
-    private double monto;
+    private final Cuenta cuenta;
+    private final double monto;
 
     public Deposito(Cuenta cuenta, double monto) {
         this.cuenta = cuenta;

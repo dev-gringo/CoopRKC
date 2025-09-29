@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorSocios {
-    private List<Socio> socios = new ArrayList<>();
-
+    private final List<Socio> socios = new ArrayList<>();
+    //registrar socios
     public void registrarSocio(Socio socio) {
         socios.add(socio);
     }
@@ -29,13 +29,6 @@ public class GestorSocios {
         System.out.print("+----+-----------------+---------------+-----------+---------------+");
     }
 
-
-    // Listar solo nombres (map + forEach)
-    public void listarNombresSocios() {
-        socios.stream()
-                .map(Socio::getNombre)
-                .forEach(System.out::println);
-    }
 
     // Filtrar por saldo mínimo (filter)
     public void filtrarPorSaldo(double saldoMinimo) {
